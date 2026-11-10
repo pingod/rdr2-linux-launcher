@@ -16,13 +16,20 @@
 # =============================================================================
 set -u
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$HERE/.." && pwd)"   # 仓库根目录
 
 # ---------------- 配置 ----------------
 GAME_DIR="${GAME_DIR:-/run/media/HDD2T01/Games/PCGames/Red Dead Redemption 2}"
 PROTON_DIR="${PROTON_DIR:-$HOME/.local/share/Steam/compatibilitytools.d/GE-Proton11-12}"
 UMU_PREFIX="${UMU_PREFIX:-$HOME/Games/umu/umu-default}"
 GAMEID="${GAMEID:-umu-default}"
-SHIM_SRC="$HERE/Launcher.exe"
+# shim 位于仓库 bin/；也允许放在脚本同目录（兼容旧布局）
+SHIM_SRC="${SHIM_SRC:-}"
+if [ -z "$SHIM_SRC" ]; then
+  for c in "$REPO/bin/Launcher.exe" "$HERE/Launcher.exe"; do
+    [ -f "$c" ] && { SHIM_SRC="$c"; break; }
+  done
+fi
 RUN_DIR="${RUN_DIR:-$HOME/.local/rdr2-umu-run}"
 # 参考 crack 密钥（从已验证可用的 bottle 里取；若你的机器没有，会跳过）
 CFG_REF="${CFG_REF:-$HOME/.local/share/bottles/bottles/demo/drive_c/users/pavia/AppData/Roaming/.1911/Red Dead Redemption 2/profile/cfg.dat}"

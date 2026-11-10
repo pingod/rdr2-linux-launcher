@@ -31,11 +31,15 @@
 git clone https://github.com/pingod/rdr2-linux-launcher.git
 cd rdr2-linux-launcher
 
-# 编辑 scripts/rdr2-umu-launch.sh 顶部的 GAME_DIR 指向你的游戏目录
+# 指向你的游戏目录（含 RDR2.exe 的那个文件夹）
+export GAME_DIR="/path/to/Red Dead Redemption 2"
+
 ./scripts/rdr2-umu-launch.sh                          # 1280x720 全屏
 ./scripts/rdr2-umu-launch.sh -W 2560 -H 1440          # 自定义分辨率
 RDR2_NO_GAMESCOPE=1 ./scripts/rdr2-umu-launch.sh      # 不用 gamescope
 ```
+
+也可以把 `GAME_DIR=...` 写在命令前面，不必 export。
 
 首次启动会编译着色器，**卡 1~2 分钟纯 CPU 属正常**。
 

@@ -19,6 +19,7 @@ UMU_PREFIX="$HOME/Games/umu/umu-default" \
 | `GAMEID` | `umu-default` | 传给 umu-run 的 GAMEID |
 | `RUN_DIR` | `$HOME/.local/rdr2-umu-run` | shim + 日志的放置目录 |
 | `CFG_REF` | bottle 里的那份 | cfg.dat 的来源路径 |
+| `SHIM_SRC` | 自动探测 `../bin/Launcher.exe` | shim 可执行文件位置 |
 | `RDR2_NO_GAMESCOPE` | 未设置 | 设为 1 则不用 gamescope |
 | `WINEDEBUG` | `-all` | 调试时改成 `+file` 等 |
 
