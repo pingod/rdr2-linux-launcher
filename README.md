@@ -23,6 +23,13 @@
 - [环境要求](#环境要求)
 - [常见问题](#常见问题)
 
+延伸文档：
+
+- **[docs/BOTTLES-UMU.md](docs/BOTTLES-UMU.md)** —— 把游戏注册进 Bottles 的 UMU 系统，
+  在 GUI 里点图标启动（含 gamescope 参数包装）
+- **[docs/TROUBLESHOOTING-LOG.md](docs/TROUBLESHOOTING-LOG.md)** —— 从第一条报错到
+  进入游戏画面的完整排查时间线（含所有失败尝试）
+
 ---
 
 ## TL;DR —— 直接能用的命令
@@ -40,6 +47,15 @@ RDR2_NO_GAMESCOPE=1 ./scripts/rdr2-umu-launch.sh      # 不用 gamescope
 ```
 
 也可以把 `GAME_DIR=...` 写在命令前面，不必 export。
+
+**想用 Bottles GUI 启动**（点图标那种）：见 [docs/BOTTLES-UMU.md](docs/BOTTLES-UMU.md)，
+核心就一条：
+
+```bash
+bottles-cli umu add --name "Red Dead Redemption 2" \
+  --executable ~/.local/rdr2-umu-run/Launcher.exe \
+  --proton ~/.local/share/Steam/compatibilitytools.d/GE-Proton11-12 --store none
+```
 
 首次启动会编译着色器，**卡 1~2 分钟纯 CPU 属正常**。
 
@@ -199,15 +215,18 @@ Wine dcomp.dll 的 DCompositionCreateDevice：
 rdr2-linux-launcher/
 ├── scripts/
 │   ├── rdr2-umu-launch.sh        ★ 主启动脚本（UMU 版，已验证）
+│   ├── README.md                   脚本的环境变量说明
 │   └── legacy-bottles-launch.sh    旧版 Bottles 方案（卡在设备初始化，仅参考）
 ├── src/
-│   ├── shim.c                     shim 源码（~150 行，freestanding C）
+│   ├── shim.c                     shim 源码（freestanding C）
 │   ├── shim3.def                  导入库定义（llvm-dlltool 用）
 │   └── libshim3.a                 预编译导入库（kernel32 符号）
 ├── bin/
 │   └── Launcher.exe              ★ 预编译 shim（PE32+ x64，8KB）
 └── docs/
-    └── README.orig.md            最初的工作笔记（英文/中英混杂）
+    ├── BOTTLES-UMU.md            ★ 注册进 Bottles UMU 的完整指南
+    ├── TROUBLESHOOTING-LOG.md    ★ 完整排查时间线（7 阶段 + 死路记录）
+    └── notes-original.md           最初的工作笔记
 ```
 
 ### shim 做了什么
