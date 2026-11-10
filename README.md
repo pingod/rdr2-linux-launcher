@@ -1,6 +1,6 @@
 # rdr2-linux-launcher
 
-**在 Linux（Wine / UMU / Proton）上启动 Razor1911 破解版《Red Dead Redemption 2》的完整解决方案。**
+**在 Linux（Wine / UMU / Proton）上启动 Razor1911 pj版《Red Dead Redemption 2》的完整解决方案。**
 
 从这个游戏在 Linux 上的第一次黑屏报错，一路逆向到能真正进入游戏画面 —— 这里记录了全部过程、全部踩过的坑、和最终可复现的方案。
 
@@ -53,7 +53,7 @@ RDR2_NO_GAMESCOPE=1 ./scripts/rdr2-umu-launch.sh      # 不用 gamescope
 
 ```bash
 bottles-cli umu add --name "Red Dead Redemption 2" \
-  --executable ~/.local/rdr2-umu-run/Launcher.exe \
+  --executable "$PWD/run/Launcher.exe" \
   --proton ~/.local/share/Steam/compatibilitytools.d/GE-Proton11-12 --store none
 ```
 
@@ -148,7 +148,7 @@ SENT: len=26  →  "TINI:launcher:CSI:26285943"
 
 ### 3. 为什么 cracktro 那条路走不通
 
-Razor1911 的 `Launcher.exe` 会先播放一段 cracktro（带音乐、Logo、滚动字幕的破解开场动画），渲染依赖 **DirectComposition v1**（`IDCompositionDevice`）。
+Razor1911 的 `Launcher.exe` 会先播放一段 cracktro（带音乐、Logo、滚动字幕的pj开场动画），渲染依赖 **DirectComposition v1**（`IDCompositionDevice`）。
 
 实测结论：
 
@@ -223,6 +223,9 @@ rdr2-linux-launcher/
 │   └── libshim3.a                 预编译导入库（kernel32 符号）
 ├── bin/
 │   └── Launcher.exe              ★ 预编译 shim（PE32+ x64，8KB）
+├── run/                        ★ shim 运行目录（Bottles 条目直接指向这里）
+│   ├── Launcher.exe               shim 的副本
+│   └── rdr2path.txt               RDR2.exe 的本机绝对路径（换机器改这行）
 └── docs/
     ├── BOTTLES-UMU.md            ★ 注册进 Bottles UMU 的完整指南
     ├── TROUBLESHOOTING-LOG.md    ★ 完整排查时间线（7 阶段 + 死路记录）

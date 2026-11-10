@@ -19,7 +19,7 @@ Bottles（≥ 2025 版）自带 UMU 集成：除了普通的「Bottles」列表�
 ```bash
 bottles-cli umu add \
   --name "Red Dead Redemption 2" \
-  --executable ~/.local/rdr2-umu-run/Launcher.exe \
+  --executable "$PWD/run/Launcher.exe" \
   --proton ~/.local/share/Steam/compatibilitytools.d/GE-Proton11-12 \
   --store none
 ```
@@ -30,15 +30,16 @@ bottles-cli umu add \
 > ⚠️ `--executable` 必须指向 **本项目的 shim `Launcher.exe`**（父进程名绕过，
 > 见主 README §1），不是游戏目录里那个真的 Rockstar Launcher.exe。
 
-## 二、shim 的运行目录
+## 二、shim 的运行目录（仓库内 `run/`）
 
-shim 需要同目录的两个文件，放在一个**稳定路径**（别用 /tmp）：
+shim 需要同目录的两个文件，本仓库直接把它们放在 **`run/` 目录里并入库**，
+clone 下来就是可用的（路径不会被遗忘，也不用记 `$HOME/.local` 这种隐藏位置）：
 
 ```
-~/.local/rdr2-umu-run/
-├── Launcher.exe        ← 本仓库 bin/Launcher.exe 的拷贝
-├── rdr2path.txt        ← 一行：RDR2.exe 的 Windows 绝对路径
-└── rdr2shim.log        ← 运行时握手日志（自动生成）
+<repo>/run/
+├── Launcher.exe        ← shim（与 bin/ 里同一份）
+├── rdr2path.txt        ← 一行：RDR2.exe 的 Windows 绝对路径（本机配置）
+└── rdr2shim.log        ← 运行时握手日志（已被 .gitignore 忽略）
 ```
 
 `rdr2path.txt` 示例（Z: 是 Wine 的盘符映射）：
@@ -47,13 +48,14 @@ shim 需要同目录的两个文件，放在一个**稳定路径**（别用 /tmp
 Z:\run\media\HDD2T01\Games\PCGames\Red Dead Redemption 2\RDR2.exe
 ```
 
-生成命令：
+> **换机器 / 游戏装在别处时**，只需改这一行；不想把自己路径提交上去的话，
+> 在 `.gitignore` 里取消 `run/rdr2path.txt` 那行的注释即可。
+
+手工生成（脚本会自动做，无需手动）：
 
 ```bash
-mkdir -p ~/.local/rdr2-umu-run
-cp <repo>/bin/Launcher.exe ~/.local/rdr2-umu-run/
 printf 'Z:%s\\RDR2.exe\r\n' "$(echo /your/game/dir | tr '/' '\\')" \
-  > ~/.local/rdr2-umu-run/rdr2path.txt
+  > <repo>/run/rdr2path.txt
 ```
 
 ## 三、game.yml 关键字段
@@ -62,9 +64,9 @@ printf 'Z:%s\\RDR2.exe\r\n' "$(echo /your/game/dir | tr '/' '\\')" \
 
 ```yaml
 name: Red Dead Redemption 2
-executable: /home/<you>/.local/rdr2-umu-run/Launcher.exe
+executable: /home/<you>/githome/rdr2-linux-launcher/run/Launcher.exe
 proton: /home/<you>/.local/share/Steam/compatibilitytools.d/GE-Proton11-12
-working_directory: /home/<you>/.local/rdr2-umu-run   # shim 的目录（不是游戏目录！）
+working_directory: /home/<you>/githome/rdr2-linux-launcher/run   # shim 的目录（不是游戏目录！）
 game_id: umu-default          # 非 Steam 库游戏用默认值即可
 store: none
 state: ready

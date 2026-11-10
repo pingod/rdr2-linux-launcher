@@ -1,7 +1,10 @@
 # 运行时产物
 rdr2shim.log
-rdr2path.txt
 *.log
+
+# run/ 里的 rdr2path.txt 是要入库的(本机游戏路径配置, 无游戏内容);
+# 若在别的机器上不想提交它, 取消下一行注释:
+# run/rdr2path.txt
 
 # 游戏文件绝不入库
 RDR2.exe

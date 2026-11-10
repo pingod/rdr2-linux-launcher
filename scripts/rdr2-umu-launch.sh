@@ -30,7 +30,7 @@ if [ -z "$SHIM_SRC" ]; then
     [ -f "$c" ] && { SHIM_SRC="$c"; break; }
   done
 fi
-RUN_DIR="${RUN_DIR:-$HOME/.local/rdr2-umu-run}"
+RUN_DIR="${RUN_DIR:-$REPO/run}"   # 仓库自包含: run/ 目录
 # 参考 crack 密钥（从已验证可用的 bottle 里取；若你的机器没有，会跳过）
 CFG_REF="${CFG_REF:-$HOME/.local/share/bottles/bottles/demo/drive_c/users/pavia/AppData/Roaming/.1911/Red Dead Redemption 2/profile/cfg.dat}"
 # --------------------------------------

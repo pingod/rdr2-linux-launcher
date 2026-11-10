@@ -1,7 +1,7 @@
 # RDR2 一键启动器（绕过 Launcher 检查 / ERR_NO_LAUNCHER）
 
 ## 这是什么
-这套文件让 **Razor1911 破解版 Red Dead Redemption 2** 能在 Wine（Bottles / GE-Proton）里
+这套文件让 **Razor1911 pj版 Red Dead Redemption 2** 能在 Wine（Bottles / GE-Proton）里
 越过 `ERR_NO_LAUNCHER`、跳过破片头 cracktro，直接启动游戏。
 
 ## 原理（一句话）
