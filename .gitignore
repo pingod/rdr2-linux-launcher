@@ -1,0 +1,18 @@
+# 运行时产物
+rdr2shim.log
+rdr2path.txt
+*.log
+
+# 游戏文件绝不入库
+RDR2.exe
+1911.dll
+1911_restored.dll
+Launcher_patched*.exe
+*.rpf
+cfg.dat
+ProfileSettings
+Player
+
+# 构建中间产物
+*.o
+*.dll.so

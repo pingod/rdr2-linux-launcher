@@ -1,0 +1,17 @@
+LIBRARY kernel32.dll
+EXPORTS
+  CreateNamedPipeA
+  ConnectNamedPipe
+  DisconnectNamedPipe
+  ReadFile
+  WriteFile
+  CloseHandle
+  CreateFileA
+  SetFilePointer
+  CreateProcessA
+  WaitForSingleObject
+  GetExitCodeProcess
+  GetLastError
+  CreateThread
+  ExitProcess
+  GetModuleFileNameA
